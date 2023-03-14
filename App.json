@@ -1,0 +1,26 @@
+[{
+    "name" : "Shubham",
+    "age" : 21,
+    "color" : "Black"
+},
+{
+    "name" : "Robin",
+    "age" : 21,
+    "color" : "Red"
+},
+{
+    "name" : "Robin",
+    "age" : 32,
+    "color" : "Red"
+},
+{
+    "name" : "Robin",
+    "age" : 31,
+    "color" : "Black"
+},
+{
+    "name" : "Darshan",
+    "age" : 15,
+    "color" : "White"
+}
+]
