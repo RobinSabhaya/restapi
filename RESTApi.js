@@ -15,7 +15,7 @@ app.set('view engine','hbs')
 app.set('views','./views')
 
 //Mongoose And Mongodb Specific Stuffs
-mongoose.connect('mongodb://mongo:7YmmELyIdHVXPsXWca1j@containers-us-west-30.railway.app:7107', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
+mongoose.connect('mongodb+srv://RobinSabhaya:<password>@cluster0.soh5rig.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
     console.log('Connection Successfull');
 }).catch((err) => {
     console.log(err);
