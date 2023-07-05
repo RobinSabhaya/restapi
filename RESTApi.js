@@ -1,40 +1,14 @@
 const express = require('express');
-const fs = require('fs');
 const path = require('path');
-const hbs = require('hbs');
-const mongoose = require('mongoose');
-const bodyparser = require('body-parser');
 const Port = process.env.PORT || 8000;
-const Api = require('./App.json');
-
+require('./db/conn');
+const RestApi = require('./db/schema')
 //Express App Specific Stuffs
 const app = express();
 app.use(express.json());
 app.use(express.static(path.join(__dirname,'/public')))
 app.set('view engine','hbs')
 app.set('views','./views')
-
-//Mongoose And Mongodb Specific Stuffs
-mongoose.connect('mongodb+srv://RobinSabhaya:<password>@cluster0.soh5rig.mongodb.net/?retryWrites=true&w=majority', { useNewUrlParser: true, useUnifiedTopology: true }).then(() => {
-    console.log('Connection Successfull');
-}).catch((err) => {
-    console.log(err);
-})
-
-const ApiSchema = new mongoose.Schema({
-   id : String,
-   name : String,
-   company : String,
-   price : Number,
-   colors : Array,
-   image : String,
-   description : String,
-   category : String,
-   featured : Boolean,
-   shipping : Boolean,
-})
-const RestApi = new mongoose.model('RestApi', ApiSchema);
-
 
 //Get And Post Request Specific Stuffs
 app.route('/Api').get(async (req, res) => {
@@ -54,14 +28,14 @@ app.route('/Api').get(async (req, res) => {
       try {
         let Sort = req.query.sort.replace(',', ' ');
         const data = await RestApi.find(Obj).sort(Sort);
-        res.status(200).json({Data : data,bits:data.length})
+        res.status(200).json({data : data,bits:data.length})
       } catch (err) {
         res.status(400).json({msg : "can't found Data!!"})
       }
     }
   try {
     const Data = await  RestApi.find(Obj);
-    res.status(200).json({StudentData : Data,bits : Data.length});
+    res.status(200).json({productData : Data,bits : Data.length});
   } catch (err) {
     res.status(400).json({msg : "can't found Data!!"})
   }
@@ -82,21 +56,21 @@ app.route('/Api').get(async (req, res) => {
 app.route('/Api/:id').patch(async(req,res)=>{
   try {
     const Upatch = await RestApi.findByIdAndUpdate({"_id":`${req.params.id}`},req.body);
-  res.status(200).json({UpdatedData : Upatch,bits:Upatch.length})
+  res.status(200).json({updatedData : Upatch,bits:Upatch.length})
   } catch (err) {
     res.status(400).json({msg : "can't found Data!!"});
   }
 }).get(async(req,res)=>{
  try {
   const Upget = await RestApi.findById(`${req.params.id}`);
-  res.status(200).json({StudentData : Upget,bits : Upget.length})
+  res.status(200).json({productData : Upget,bits : Upget.length})
  } catch (err) {
   res.status(400).json({msg : "can't found Data!!"})
  }
 }).delete(async(req,res)=>{
   try {
     const Deldata = await RestApi.findByIdAndDelete({"_id" : `${req.params.id}`});
-    res.status(200).json({DeletedData : Deldata,bits:Deldata.length});
+    res.status(200).json({deletedData : Deldata,bits:Deldata.length});
   } catch (err) {
     res.status(400).json({msg : "can't found Data!!"});
   }

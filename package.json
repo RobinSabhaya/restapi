@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon RESTApi.js -e html,css,hbs,js,json",
-    "start" : "node RESTApi.js"
+    "start": "node RESTApi.js"
   },
   "author": "Robin Sabhaya",
   "license": "ISC",
@@ -15,6 +15,7 @@
     "express": "^4.18.2",
     "hbs": "^4.2.0",
     "mongoose": "^6.8.3",
+    "nodemon": "^2.0.22",
     "pug": "^3.0.2"
   }
 }
